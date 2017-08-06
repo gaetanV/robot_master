@@ -1,0 +1,14 @@
+client/dist
+client/tmp
+client/out-tsc
+client/node_modules/
+client/e2e/*.js
+client/e2e/*.map
+client/package-lock.json
+
+#gradlew wrapper
+server/complete/build
+server/complete/gradle
+server/complete/.gradle
+
+/test/
