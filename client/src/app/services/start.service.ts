@@ -5,7 +5,7 @@ import { cards } from '../entity/cards';
 
 @Injectable()
 export class StartService {
-  private startUrl = 'http://localhost:8080/';
+  private startUrl = 'http://localhost:8080/api/card/';
   constructor(private http: Http) {}
   
  

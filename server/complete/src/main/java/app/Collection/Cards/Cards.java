@@ -1,4 +1,4 @@
-package cards;
+package app.Collection.Cards;
 
 import java.util.*;
 
