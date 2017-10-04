@@ -1,5 +1,7 @@
 package app.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,8 @@ import org.json.JSONObject;
 import org.json.JSONException;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.FieldError;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import app.Services.UserService;
 import app.Form.UserRegistration;
@@ -31,28 +35,44 @@ public class UserController {
 
     @GetMapping(path = "/all")
     public @ResponseBody
-    Iterable<User> getAllUsers() {
-        return userRepository.findAll();
+    String getAllUsers() {
+        List<JSONObject> entities = new ArrayList<JSONObject>();
+        List<User> users = userRepository.findAll();
+        try {
+            users.forEach((user) -> {
+                try {
+                    JSONObject entity = new JSONObject();
+                    entity.put("name", user.getUsername());
+                    entity.put("email", user.getEmail());
+                    entities.add(entity);
+                } catch (JSONException e) {
+                    throw new RuntimeException();
+                }
+            });
+        } catch (RuntimeException e) {
+            return "{\"response\":\"error\"}";
+        }
+        return entities.toString();
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public @ResponseBody
     String createNewUser(@Valid UserRegistration userRegistration, BindingResult bindingResult) {
-        
+
         User userExists = userRepository.findByEmail(userRegistration.getEmail());
-        
+
         JSONObject response = new JSONObject();
         if (userExists != null) {
             bindingResult.rejectValue("email", "error.user", "There is already a user registered with the email provided");
         }
         try {
-            if (bindingResult.hasErrors()) { 
+            if (bindingResult.hasErrors()) {
                 JSONObject item = new JSONObject();
                 for (FieldError error : bindingResult.getFieldErrors()) {
                     item.put(error.getField(), error.getDefaultMessage());
                 }
                 for (ObjectError objectError : bindingResult.getGlobalErrors()) {
-                    item.put("extra",objectError);
+                    item.put("extra", objectError);
                 }
                 response.put("errors", item);
             } else {
@@ -61,7 +81,7 @@ public class UserController {
             }
             return response.toString();
         } catch (JSONException e) {
-           return "{\"response\":\"error\"}";
+            return "{\"response\":\"error\"}";
         }
 
     }

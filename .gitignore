@@ -7,8 +7,8 @@ client/e2e/*.map
 client/package-lock.json
 
 #gradlew wrapper
-server/complete/build
-server/complete/gradle
-server/complete/.gradle
+server/build
+server/gradle
+server/.gradle
 
 /test/
