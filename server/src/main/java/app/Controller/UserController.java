@@ -2,21 +2,18 @@ package app.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.Valid;
+
+import org.json.JSONObject;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.validation.BindingResult;
-import javax.validation.Valid;
-import org.json.JSONObject;
-import org.json.JSONException;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.FieldError;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
 
 import app.Services.UserService;
 import app.Form.UserRegistration;
@@ -55,7 +52,7 @@ public class UserController {
         return entities.toString();
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @GetMapping(path = "/registration")
     public @ResponseBody
     String createNewUser(@Valid UserRegistration userRegistration, BindingResult bindingResult) {
 
