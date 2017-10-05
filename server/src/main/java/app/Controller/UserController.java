@@ -18,14 +18,10 @@ import org.springframework.validation.FieldError;
 import app.Services.UserService;
 import app.Form.UserRegistration;
 import app.Entity.User.User;
-import app.Entity.User.UserRepository;
 
 @Controller
 @RequestMapping(path = "/api/user/")
 public class UserController {
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -34,7 +30,7 @@ public class UserController {
     public @ResponseBody
     String getAllUsers() {
         List<JSONObject> entities = new ArrayList<JSONObject>();
-        List<User> users = userRepository.findAll();
+        List<User> users = userService.findAll();
         try {
             users.forEach((user) -> {
                 try {
@@ -56,13 +52,11 @@ public class UserController {
     public @ResponseBody
     String createNewUser(@Valid UserRegistration userRegistration, BindingResult bindingResult) {
 
-        User userExists = userRepository.findByEmail(userRegistration.getEmail());
-
-        JSONObject response = new JSONObject();
-        if (userExists != null) {
+        if (userService.userMailExist(userRegistration.getEmail())) {
             bindingResult.rejectValue("email", "error.user", "There is already a user registered with the email provided");
         }
         try {
+            JSONObject response = new JSONObject();
             if (bindingResult.hasErrors()) {
                 JSONObject item = new JSONObject();
                 for (FieldError error : bindingResult.getFieldErrors()) {
