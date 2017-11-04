@@ -6,8 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.ManyToMany;
-import java.util.Set;
 import app.Entity.User.User;
+import java.util.List;
 
 @Entity
 @Table(name = "role")
@@ -16,7 +16,7 @@ public class Role {
     private Long id;
     private String name;
 
-    private Set<User> users;
+    private List<User> users;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,11 +37,11 @@ public class Role {
     }
 
     @ManyToMany(mappedBy = "roles")
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 

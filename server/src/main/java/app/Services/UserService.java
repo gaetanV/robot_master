@@ -1,7 +1,6 @@
 package app.Services;
 
 import java.util.Arrays;
-import java.util.HashSet;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class UserService {
         user.setUsername(userRegistration.getUsername());
         user.setEmail(userRegistration.getEmail());
         Role userRole = roleRepository.findByName("ADMIN");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setRoles(Arrays.asList(userRole));
         userRepository.save(user);
     }
 

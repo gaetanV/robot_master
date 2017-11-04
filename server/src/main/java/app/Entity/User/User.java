@@ -10,7 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.CascadeType;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import java.util.List;
 
 import app.Entity.Role.Role;
 
@@ -43,7 +43,7 @@ public class User {
             @JoinColumn(name = "role_id")
         }
     )
-    private Set<Role> roles;
+    private List<Role> roles;
     
     public Long getId() {
         return id;
@@ -84,13 +84,12 @@ public class User {
     public void setId(boolean enabled) {
         this.enabled = enabled;
     }
-
  
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return this.roles;
     }
     
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
