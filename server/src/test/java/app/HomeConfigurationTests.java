@@ -27,7 +27,7 @@ public class HomeConfigurationTests {
 
     @Test
     public void testGreeting() throws Exception {
-        ResponseEntity<String> entity = restTemplate.getForEntity("http://localhost:" + this.port + "/api/registration", String.class);
+        ResponseEntity<String> entity = restTemplate.getForEntity("http://localhost:" + this.port + "/api/user/all", String.class);
         assertEquals(HttpStatus.OK, entity.getStatusCode());
     }
 

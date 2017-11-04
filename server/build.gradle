@@ -1,3 +1,7 @@
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.1'
+}
+
 buildscript {
     repositories {
         mavenCentral()
@@ -7,6 +11,7 @@ buildscript {
         classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
+
 
 apply plugin: 'java'
 apply plugin: 'eclipse'

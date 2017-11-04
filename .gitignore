@@ -10,5 +10,8 @@ client/package-lock.json
 server/build
 server/gradle
 server/.gradle
+server/target
+server/gradlew
+server/gradlew.bat
 
 /test/
