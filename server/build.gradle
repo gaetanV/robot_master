@@ -1,5 +1,5 @@
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '5.0'
 }
 
 buildscript {
@@ -8,7 +8,6 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
-        classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
@@ -38,19 +37,4 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-security'
     compile group: 'org.json', name: 'json', version: '20090211'
     testCompile("org.springframework.boot:spring-boot-starter-test")
-}
-
-
-apply plugin: 'docker'
-task buildDocker(type: Docker, dependsOn: build) {
-  baseImage = 'gaetanv/spring'
-  push = false
-  tag = 'gaetanv/spring'
-  dockerfile = file('src/main/docker/Dockerfile')
-  doFirst {
-    copy {
-      from jar
-      into stageDir
-    }
-  }
 }

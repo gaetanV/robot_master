@@ -1,0 +1,32 @@
+version  : '3.3'
+
+services:
+    java:
+        build:
+            context: .
+            dockerfile: jar.dockerfile
+        ports:
+            - "8080:8080"    
+        networks:
+            - javaapp
+        environment: 
+          DATABASE_HOST: mysql
+    mysql:
+        image: mysql
+        restart: always
+        volumes:
+          - /db/:/var/lib/mysql
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: spring
+          MYSQL_USER: java
+          MYSQL_PASSWORD: spring
+        ports:
+            - "3306:3306" 
+        networks:
+            - javaapp
+            
+networks:
+    javaapp:
+        driver: bridge
+        
