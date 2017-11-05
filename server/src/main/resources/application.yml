@@ -1,0 +1,12 @@
+spring:
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+    datasource:
+        url: jdbc:mysql://${DATABASE_HOST}:3306/spring?useSSL=false
+        username: java
+        password: spring
+    queries:
+        users-query: select email, password, active from user where email=?
+        roles-query: select u.email, r.role from user u inner join user_role ur on(u.user_id=ur.user_id) inner join role r on(ur.role_id=r.role_id) where u.email=?
