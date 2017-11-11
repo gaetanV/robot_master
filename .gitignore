@@ -1,3 +1,7 @@
+*.iml
+/.idea
+/test
+
 client/dist
 client/tmp
 client/out-tsc
@@ -6,12 +10,16 @@ client/e2e/*.js
 client/e2e/*.map
 client/package-lock.json
 
-#gradlew wrapper
 server/build
 server/gradle
 server/.gradle
 server/target
 server/gradlew
 server/gradlew.bat
+server/.idea
 
-/test/
+android/.gradle
+android/gradle
+android/.idea
+android/build
+
